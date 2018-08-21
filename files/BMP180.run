@@ -1,0 +1,15 @@
+return function (t)
+local r
+ if t.run then 
+  r=dofile("BMP180.lua")({init=t})
+  _DoT:on("dot", function (t)
+   local t=dofile("BMP180.lua")({temp=1})
+   local p=dofile("BMP180.lua")({pres=1})
+   if(_M and t) then _M.pub("info/BMP/temp",t)end   
+   if(_M and p) then _M.pub("info/BMP/pres",p)end
+  end)
+ else
+  print("Plugin BMP180 not started")
+ end
+ return r
+end

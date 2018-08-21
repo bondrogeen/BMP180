@@ -1,0 +1,41 @@
+{
+ "name": "BMP180",
+ "type": "plugin",
+ "description": "BMP180 Barometric Pressure/Temperature/Altitude Sensor.",
+ "version": "0.0.1",
+ "img":"https://raw.githubusercontent.com/bondrogeen/BMP180/master/doc/logo.jpg",
+ "homepage": "",
+ "files": ["BMP180.init","BMP180.info","BMP180.lua","BMP180.run","BMP180.html"],
+ "page": ["BMP180.html"],
+ "repository": {
+  "type": "git",
+  "url": "https://github.com/bondrogeen/BMP180"
+ },
+ "keywords": ["esp8266", "lua", "nodemcu", "BMP180"],
+ "author": {
+  "name": "bondrogeen",
+  "email": "bondrogeen@gmail.com"
+ },
+ "native": [
+ {
+   "id":"run",
+   "val":false,
+   "type": "checkbox",
+   "name":"Run"
+  }, {
+   "id": "sda",
+   "val": 4,
+   "type": "select",
+   "values": [1,2,3,4,5,6,7,9,10],
+   "name": "Pin data [i2c]"
+  }, {
+   "id": "scl",
+   "val": 3,
+   "type": "select",
+   "values": [1,2,3,4,5,6,7,9,10],
+   "name": "Pin clock [i2c]"
+  }
+ ],
+ "license": "MIT",
+ "modules": ["sjson", "i2c"]
+}

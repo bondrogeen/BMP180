@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+ <title>Template</title>
+ <link rel="stylesheet" href="style.css.gz" />
+ <style>
+
+  button{
+   font-size: 1.11em;
+  }
+ </style>
+</head>
+
+<body>
+ <div id="loader" class="loader hide"></div>
+ <div id="sideNav" class="sidenav">
+  <span href="javascript:void(0)" class="close" onclick="document.getElementById('sideNav').classList.toggle('open');">&times;</span>
+  <div class="in"></div>
+  <a href="http://dot.codedevice.ru/example/" target="_blank">Example css</a>
+  <a href="https://github.com/bondrogeen/dot" target="_blank">GitHub</a>
+  <a href="http://dot.codedevice.ru" target="_blank">DOT</a>
+ </div>
+ <div class="sideopen warning"><a onclick="document.getElementById('sideNav').classList.toggle('open');">&equiv;</a></div>
+ <ul class="nav fix warning" id="topNav">
+  <li><a href="/" class="brand">DOT</a></li>
+  <li><a href="settings.html">Settings</a></li>
+  <li><a href="service.html">Service</a></li>
+  <li class="-exit"><a href="#" id="btn_exit" onclick="logout()">Exit</a></li>
+  <li class="-icon"><a href="#" onclick="document.getElementById('topNav').classList.toggle('res');">&equiv;</a></li>
+ </ul>
+ <div id="Modal" class="modal <?lua return(dofile('BMP180.lua')({temp=1})and 'hide' or '')?>">
+  <div class="m-cont">
+   <span class="close" id="close_m" onclick="closeM();">&times;</span>
+   <div class="m-body">
+    <p>The plugin is not running.</p>
+   </div>
+   <div class="m-foo">
+    <button id="save_m" onclick="closeM();" class="success">OK</button>
+   </div>
+  </div>
+ </div>
+ <div class="cont">
+  <div class="row">
+   <div class="s12 m2 l2">
+
+   </div>
+   <div class="s12 m10 l9 ">
+    <h1>BMP180</h1>
+     <h4>Temperature : <?lua return(dofile("BMP180.lua")({temp=1}))?> °C</h4>
+     <h4>Pressure : <?lua return(dofile("BMP180.lua")({pres=1}))?> mmHg</h4>
+     <h3>Example http request</h3>
+     <div class="row">
+     <div class="s12">
+     <p id="info1" ></p>
+     <p id="info2" ></p>
+     <p id="info3" ></p>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <script>
+  function logout() {
+   document.cookie = "id=";
+   location.href = '/login.html';
+  }
+
+  function closeM(){
+   document.getElementById("Modal").classList.add('hide');
+  }
+
+  function send(page, data, callback) {
+   var req = new XMLHttpRequest();
+   req.open("POST", page, true);
+   req.setRequestHeader('Content-Type', 'application/json');
+   req.addEventListener("load", function() {
+    if (req.status < 400) {
+     callback(req.responseText);
+    } else {
+     callback(false);
+    }
+   });
+   req.send(JSON.stringify(data));
+  }
+
+
+  document.getElementById("info1").innerHTML="<a target='_blank' href='http://"+window.location.hostname+"/BMP180.lua?temp=1' >http://"+window.location.hostname+"/BMP180.lua?temp=1</a>"
+
+  document.getElementById("info2").innerHTML="<a target='_blank' href='http://"+window.location.hostname+"/BMP180.lua?pres=1' >http://"+window.location.hostname+"/BMP180.lua?pres=1</a>"
+
+ </script>
+</body>
+
+</html>
